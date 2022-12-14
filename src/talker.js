@@ -41,10 +41,19 @@ const deleteById = async (id) => {
   await fs.writeFile(filePath, JSON.stringify(newTalkers, null, 2));
 };
 
+const getByQuery = async (query) => {
+  const talkers = await readTalkerFile();
+  const searched = talkers.filter((t) =>
+    t.name.toLowerCase().includes(query.toLowerCase()));
+  
+  return searched;
+};
+
 module.exports = {
   readTalkerFile,
   getTalkerById,
   writeTalkerFile,
   editById,
   deleteById,
+  getByQuery,
 };
