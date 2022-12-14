@@ -4,16 +4,19 @@ const { join } = require('path');
 const path = './talker.json';
 
 const readTalkerFile = async () => {
-  try {
-    const response = await fs.readFile(join(__dirname, path), 'utf-8');
-    
-    return JSON.parse(response);
-  } catch (err) {
-    console.log(err.message);
-    return null;
-  }
+  const response = await fs.readFile(join(__dirname, path), 'utf-8');
+  
+  return JSON.parse(response);
+};
+
+const getTalkerById = async (id) => {
+    const talkers = await readTalkerFile();
+    const talker = talkers.find((t) => t.id === id);
+
+    return talker;
 };
 
 module.exports = {
   readTalkerFile,
+  getTalkerById,
 };
