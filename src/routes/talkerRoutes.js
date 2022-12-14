@@ -57,4 +57,13 @@ router.put('/:id',
     return res.status(200).json(editedTalker);
   });
 
+router.delete('/:id',
+  validateAuthorization,
+  async (req, res) => {
+    const id = Number(req.params.id);
+    await talkerJS.deleteById(id);
+    
+    return res.status(204).json();
+  });
+
 module.exports = router;
