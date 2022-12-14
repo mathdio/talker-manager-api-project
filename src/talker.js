@@ -21,8 +21,22 @@ const writeTalkerFile = async (content) => {
   await fs.writeFile(filePath, JSON.stringify(content, null, 2));
 };
 
+const editById = async (id, content) => {
+  const talkers = await readTalkerFile();
+  const editTalkers = talkers.map((t) => {
+    if (t.id === id) {
+      return { ...t, ...content };
+    }
+    return t;
+  });
+
+  await fs.writeFile(filePath, JSON.stringify(editTalkers, null, 2));
+  return { id, ...content };
+};
+
 module.exports = {
   readTalkerFile,
   getTalkerById,
   writeTalkerFile,
+  editById,
 };

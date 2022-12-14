@@ -41,6 +41,20 @@ router.post('/',
     talkers.push(newTalker);
     await talkerJS.writeTalkerFile(talkers);
     return res.status(201).json(newTalker);
-});
+  });
+
+router.put('/:id',
+  validateAuthorization,
+  validateName,
+  validateAge,
+  validateTalk,
+  validateWatchedAt,
+  validateRate,
+  async (req, res) => {
+    const id = Number(req.params.id);
+    const content = req.body;
+    const editedTalker = await talkerJS.editById(id, content);
+    return res.status(200).json(editedTalker);
+  });
 
 module.exports = router;
